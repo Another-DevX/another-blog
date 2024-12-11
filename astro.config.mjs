@@ -5,15 +5,16 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import admonitionsPlugin from "./bin/remark-admonitions.js";
+import admonitionsPlugin from './bin/remark-admonitions.js';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://anotherdev.eth.limo',
   integrations: [mdx(), sitemap()],
+  trailingSlash: "always",
   markdown: {
     remarkPlugins: [remarkMath, admonitionsPlugin],
     rehypePlugins: [rehypeKatex, rehypeSlug, rehypeAutolinkHeadings],
   },
-  output: "static",
+  output: 'static',
 });
