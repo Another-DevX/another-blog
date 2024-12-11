@@ -14,5 +14,6 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath, admonitionsPlugin],
     rehypePlugins: [rehypeKatex, rehypeSlug, rehypeAutolinkHeadings],
-  }
+  },
+  output: "static",
 });
