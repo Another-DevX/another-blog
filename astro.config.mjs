@@ -14,8 +14,5 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath, admonitionsPlugin],
     rehypePlugins: [rehypeKatex, rehypeSlug, rehypeAutolinkHeadings],
-  },
-  redirects: {
-    '/home': '/blog'
   }
 });
