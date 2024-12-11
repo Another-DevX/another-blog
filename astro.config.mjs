@@ -16,6 +16,6 @@ export default defineConfig({
     rehypePlugins: [rehypeKatex, rehypeSlug, rehypeAutolinkHeadings],
   },
   redirects: {
-    '/': '/blog'
+    '/home': '/blog'
   }
 });
