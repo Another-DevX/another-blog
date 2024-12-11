@@ -5,6 +5,7 @@ pubDate: 'Dec 11 2024'
 heroImage: '/ECDSA.png'
 ---
 
+
 Una curva elíptica sobre un **campo finito** $\mathbb{F}_{p}$ se define por la ecuación de **Weierstrass estándar:**
 $$
 y^2 = x^3 + ax + b
@@ -41,13 +42,17 @@ La operación binaria $\oplus: C \times C \to C$ se define como:
 
 En el caso de que $P \neq Q$ y $x_{p} \neq x_{ q}$
 1. Calcular pendiente entre los 2 puntos
-$$m = \frac{y_{q}- y_{p}}{x_{q}-x_{p}}$$
+$$
+m = \frac{y_{q}- y_{p}}{x_{q}-x_{p}}
+$$
 2. Calcular coordenadas de punto $R$
 $$
 x_{r } = m^2-x_{p}-x_{q} \qquad y_{r} = m(x_{p}-x_{r})-y_{p} 
 $$
 Por tanto:
-$$P \oplus Q = (x_{r}, y_{r}) = R$$
+$$
+P \oplus Q = (x_{r}, y_{r}) = R
+$$
 En el caso especial de que $P = Q$ entonces la pendiente entre $P$ y $Q$ es simplemente la derivada de la ecuación de la curva sobre el punto $x_{p}$, de este modo:
 $$
 y^2=x^3+ax+b.
@@ -63,8 +68,13 @@ $$
 P \oplus Q  = P \oplus P = 2P = (x_{r},y_{r})
 $$
 Ahora definimos un punto $\mathcal{O}$ en el infinito sobre el plano proyectivo, este punto cumple las siguientes propiedades
-$$P \oplus \mathcal{O} = P \qquad \mathcal{O} \oplus Q = Q $$  Si $P = (x, y)$ y $Q(x,-y)$ entonces
-$$P \oplus Q = \mathcal{O}$$
+$$
+P \oplus \mathcal{O} = P \qquad \mathcal{O} \oplus Q = Q 
+$$  
+Si $P = (x, y)$ y $Q(x,-y)$ entonces
+$$
+P \oplus Q = \mathcal{O}
+$$
 Con este punto $\mathcal{O}$ obtenemos el elemento neutro, necesario para que la estructura que definimos sea un grupo abeliano.
 
 Note que "la multiplicación por escalar" sobre esta estructura, se define como:
@@ -72,7 +82,6 @@ Dado un punto $P \in C$ y un múltiplo escalar $k \in \mathbb{Z}$, tenemos que:
 $$
 k\cdot P = \sum_{n=1}^{k} P \oplus P 
 $$
-
 
 ## La Seguridad en Curvas Elípticas: Elliptic-Curve Discrete Logarithm Problem (ECDLP)
 
@@ -105,7 +114,6 @@ La generación de estas llaves es extremadamente rápida y eficiente.
 
 Las llaves publicas son puntos de la curva elíptica, y estos puntos están definidos por coordenadas $(x,y)$. Debido a las propiedades de esta familia de curvas, los puntos se pueden expresar en una version comprimida de una sola coordenada $x$ y una bandera que indica si $y$ es positivo o negativo, por tanto a una llave privada de **256-bit** le corresponde una llave publica de **257-bit**.
 
->[!Note]
 >La propiedad específica que permite esta compresión es la **simetría respecto al eje $x$**. Esto se debe a que, para una curva elíptica $C$ definida por $y^2 = x^3 + ax + b$, para cada valor de $x$ (dentro del dominio válido de la curva) tiene como máximo dos valores posibles de $y$, que son opuestos: $y$ y $-y$. Esta simetría permite almacenar únicamente $x$ y un bit adicional que indique el signo de $y$.
 >
 
@@ -117,7 +125,9 @@ Para un generador $G$ existe un $r \in \mathbb{Z}^+$ tal que $r \cdot G = O$ con
 ### Derivación de llaves
 
 Dado un generador $G$ y un número entero $k$ **(Llave privada)**, es posible calcular un punto que pertenece a la curva elíptica
-$$P = k\cdot G$$
+$$
+P = k\cdot G
+$$
 Esta operación consiste en la suma de el punto $G$ consigo mismo $k$ veces.
 
 Note que calcular $k$ dados los puntos $G$ y $P$ es computacionalmente inviable, ya que:
