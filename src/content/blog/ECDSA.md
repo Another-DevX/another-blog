@@ -14,12 +14,12 @@ Donde $a$ y $b$ son constantes que determinan la forma de la curva, todos los pu
 
 Este tipo de curvas se usan en cripto-sistemas como **ECDSA (Elliptic Curve Digital Signature Algorithm)** por la dificultad de resolución del problema del logaritmo discreto en curvas elípticas.
 
-## Curvas elípticas en criptografia
+## Curvas elípticas en criptografía
 Las curvas elípticas han ganado popularidad sobre métodos clásicos como **RSA** debido a que proporcionan un nivel equivalente o superior de seguridad con tamaños de llave significativamente menores. Por ejemplo, una clave de **256 bits en ECDSA** ofrece una seguridad comparable a la de una clave **RSA de 3072 bits**. Esto implica un ahorro en ancho de banda, tiempo de cómputo y espacio de almacenamiento. Además, el problema del logaritmo discreto en curvas elípticas **(ECDLP)** es considerado más difícil de resolver que el problema del logaritmo discreto clásico **(DLP)** en los enteros módulo **$p$**, por lo que a igualdad de recursos computacionales, las curvas elípticas presentan una barrera de **seguridad más alta**.
 
 ## Estructura de Grupo en Curvas Elípticas
 
-Para la construcción de la estructura algebraica usada en **ECDSA** debemos definir un grupo abeliano sobre la curva,
+Para la construcción de la estructura algebraica usada en **ECDSA** debemos definir un grupo abeliano sobre la curva.
 ### Definición de grupo abeliano
 Un grupo abeliano es una estructura algebraica ($\mathbb{G}, \oplus$), donde:
 - $\mathbb{G}$ es un conjunto no vacío
@@ -36,7 +36,7 @@ Sea $C$ una curva elíptica sobre un campo $\mathbb{F}_{p}$ definida por la ecua
 $$
 y^2 = x^3 + ax + b
 $$
-Donde $a,b \in \mathbb{F}_{p}$ y la curva es no singular (sin puntos con multiples tangentes)
+Donde $a,b \in \mathbb{F}_{p}$ y la curva es no singular (sin puntos con múltiples tangentes)
 Consideremos los puntos $P = (x_{p},y_{p})$ y $Q = (x_{q}, y_{q})$ tal que $P,Q \in C$ 
 La operación binaria $\oplus: C \times C \to C$ se define como:
 
@@ -87,7 +87,7 @@ $$
 
 La seguridad de este esquema de firmado se respalda enteramente en el problema **ECDLP** el cual esta definido como:
 - Dada una curva elíptica sobre el campo finito $\mathbb{F}_{p}$, un punto generador $G$ en la curva y un punto $P$ en la curva, encontrar el entero $k$ tal que $P = k \cdot G$ 
-Para campos finitos seleccionados rigurosamente, este problema no tiene solución optima.
+Para campos finitos seleccionados rigurosamente, este problema no tiene solución óptima.
 
 La multiplicación sobre puntos de la curva elíptica en el grupo $\mathbb{F}_{p}$ es similar a la **exponenciación** en el grupo $\mathbb{Z}_{p}$ (Enteros modulo $p$).
 
@@ -100,19 +100,19 @@ $$
 $$
 El problema **ECDLP** es análogo al problema de **DLP** (Discrete logarithm problem) en $\mathbb{Z}_{p}$.
 
-Aunque **ECDLP** tiene mayor dificultad por la forma en la que se construyen las sumas ya que no es una operación algebraica sino geométrica, por tanto no existe una operación inversa linealmente alcanzable.
+Aunque **ECDLP** tiene mayor dificultad por la forma en la que se construyen las sumas, ya que no es una operación algebraica sino geométrica, por tanto no existe una operación inversa linealmente alcanzable.
 
-Note que la dificultad de el **ECDLP** depende en gran parte del tamaño del campo $\mathbb{F}_{p}$ y una selección rigurosa de la curva como por ejemplo **secp256k1**.
+Note que la dificultad de el **ECDLP** depende en gran parte del tamaño del campo $\mathbb{F}_{p}$ y una selección rigurosa de la curva, como por ejemplo **secp256k1**.
 
 
-## Llaves criptograficas en curvas elípticas
+## Llaves criptográficas en curvas elípticas
 ### Llaves privadas
-Las **llaves privadas** son enteros seleccionados dentro de el rango del tamaño de la curva generalmente son enteros de **256-bit**.
+Las **llaves privadas** son enteros seleccionados dentro del rango del tamaño de la curva generalmente son enteros de **256-bit**.
 
 La generación de estas llaves es extremadamente rápida y eficiente.
-### Llaves publicas
+### Llaves públicas
 
-Las llaves publicas son puntos de la curva elíptica, y estos puntos están definidos por coordenadas $(x,y)$. Debido a las propiedades de esta familia de curvas, los puntos se pueden expresar en una version comprimida de una sola coordenada $x$ y una bandera que indica si $y$ es positivo o negativo, por tanto a una llave privada de **256-bit** le corresponde una llave publica de **257-bit**.
+Las llaves públicas son puntos de la curva elíptica, y estos puntos están definidos por coordenadas $(x,y)$. Debido a las propiedades de esta familia de curvas, los puntos se pueden expresar en una versión comprimida de una sola coordenada $x$ y una bandera que indica si $y$ es positivo o negativo, por tanto a una llave privada de **256-bit** le corresponde una llave publica de **257-bit**.
 
 >La propiedad específica que permite esta compresión es la **simetría respecto al eje $x$**. Esto se debe a que, para una curva elíptica $C$ definida por $y^2 = x^3 + ax + b$, para cada valor de $x$ (dentro del dominio válido de la curva) tiene como máximo dos valores posibles de $y$, que son opuestos: $y$ y $-y$. Esta simetría permite almacenar únicamente $x$ y un bit adicional que indique el signo de $y$.
 >
@@ -132,10 +132,10 @@ Esta operación consiste en la suma de el punto $G$ consigo mismo $k$ veces.
 
 Note que calcular $k$ dados los puntos $G$ y $P$ es computacionalmente inviable, ya que:
 1. No existe una operación inversa definida sobre el grupo tal que $k = \frac{P}{G}$
-2. La unica forma conocida de encontrar $k$ es mediante fuerza bruta o algoritmos especializados lo que garantiza la seguridad del esquema
+2. La única forma conocida de encontrar $k$ es mediante fuerza bruta o algoritmos especializados, lo que garantiza la seguridad del esquema.
 
 ## ECDSA: Firmas Digitales con Curvas Elípticas
-Para este tipo de casos usamos curvas conocidas como por ejemplo **secp256k1**.
+Para este tipo de casos usamos curvas conocidas, como por ejemplo **secp256k1**.
 
 ### Generación
 
