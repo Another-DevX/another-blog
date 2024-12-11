@@ -117,6 +117,8 @@ table {
 }
 img {
   border-radius: 8px;
+  max-width: 80vw;
+  height: auto;
 }
 pre {
   background-color: #000000 !important; /* Fondo oscuro sobrio */
