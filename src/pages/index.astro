@@ -1,13 +1,26 @@
 ---
-export const prerender = true; // Asegura que esta página se renderice estáticamente
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang='en'>
   <head>
-    <meta http-equiv="refresh" content="0; URL=/blog" />
-    <title>Redirecting...</title>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+        h1{
+            color: white;
+            text-align: center;
+        }
+    </style>
   </head>
   <body>
-    <p>Redirecting to <a href="/blog">/blog</a>...</p>
+    <Header />
+    <main>
+      <h1>GM!</h1>
+    </main>
+    <Footer />
   </body>
 </html>
