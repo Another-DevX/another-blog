@@ -9,7 +9,7 @@ import admonitionsPlugin from "./bin/remark-admonitions.js";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://anotherdev.eth.limo',
   integrations: [mdx(), sitemap()],
   markdown: {
     remarkPlugins: [remarkMath, admonitionsPlugin],
