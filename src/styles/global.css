@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'Atkinson';
-  src: url('/fonts/atkinson-regular.woff2') format('woff2');
+  src: url('/fonts/atkinson-regular.woff2') format('woff');
   font-weight: 400;
   font-style: normal;
 }
@@ -55,3 +55,12 @@
   filter: var(--md-img-filter);
 }
 
+
+.scroll-progress-bar{
+  background-color: hsl(var(--theme-accent));
+}
+
+/* Estilo para el enlace activo en el TOC */
+.toc a[data-active="true"] {
+  color: hsl(var(--theme-accent));
+}

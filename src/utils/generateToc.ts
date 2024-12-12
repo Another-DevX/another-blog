@@ -23,8 +23,9 @@ function injectChild(items: TocItem[], item: TocItem): void {
 
 export function generateToc(
 	headings: ReadonlyArray<MarkdownHeading>,
-	{ maxHeadingLevel = 4, minHeadingLevel = 2 }: TocOpts = {},
+	{ maxHeadingLevel = 4, minHeadingLevel = 1 }: TocOpts = {},
 ) {
+	headings = headings.filter(({ slug }) => slug != "footnote-label")
 	// by default this ignores/filters out h1 and h5 heading(s)
 	const bodyHeadings = headings.filter(
 		({ depth }) => depth >= minHeadingLevel && depth <= maxHeadingLevel,

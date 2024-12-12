@@ -1,20 +1,100 @@
 ---
-import { generateToc } from "../../utils/generateToc";
-import type { MarkdownHeading } from "astro";
-import TOCHeading from "./TOCHeading.astro";
+import { generateToc } from '../../utils/generateToc';
+import type { MarkdownHeading } from 'astro';
+import TOCHeading from './TOCHeading.astro';
 
 interface Props {
-	headings: MarkdownHeading[];
+  title: MarkdownHeading;
+  headings: MarkdownHeading[];
 }
 
-const { headings } = Astro.props;
+const { headings, title } = Astro.props;
 
-const toc = generateToc(headings);
+const toc = generateToc([title, ...headings]);
 ---
 
-<aside class="sticky top-20 order-2 -me-32 hidden basis-64 lg:block">
-	<h2 class="title text-lg">Table of Contents</h2>
-	<ul class="mt-4 text-sm">
-		{toc.map((heading) => <TOCHeading heading={heading} />)}
-	</ul>
+<aside class='sticky top-20 order-2 -me-32 hidden basis-64 lg:block'>
+  <h2 class='title text-lg'>Table of Contents</h2>
+  <ul class='mt-4 pl-4 text-sm toc relative'>
+    <div class='scroll-progress absolute left-0 top-0 w-1 h-full'>
+      <div
+        class='scroll-progress-bar w-full'
+      >
+      </div>
+    </div>
+    {toc.map((heading) => <TOCHeading heading={heading} />)}
+  </ul>
 </aside>
+
+<script client:load>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tocLinks = document.querySelectorAll('.toc a');
+    if (tocLinks.length === 0) return;
+
+    // Evento click: el enlace se marca inmediatamente al hacer click.
+    tocLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        tocLinks.forEach((l) => l.removeAttribute('data-active'));
+        link.setAttribute('data-active', 'true');
+      });
+    });
+
+    const headings = Array.from(
+      document.querySelectorAll(
+        'article h1, article h2, article h3, article h4'
+      )
+    );
+
+    // Calcular las posiciones relativas de los headings
+    const headingOffsets = headings.map((heading) => ({
+      id: heading.getAttribute('id'),
+      offsetTop: heading.offsetTop,
+    }));
+
+    const totalHeight =
+      headingOffsets[headingOffsets.length - 1].offsetTop -
+      headingOffsets[0].offsetTop;
+
+    const scrollBar = document.querySelector('.scroll-progress-bar');
+
+    // Evento de scroll
+    window.addEventListener('scroll', () => {
+      const scrollBottom = window.scrollY + window.innerHeight;
+
+      // Encontrar en qué sección estamos
+	  let currentSectionIndex = headingOffsets.findIndex(
+        (heading, index) =>
+          scrollBottom >= heading.offsetTop &&
+          (index === headingOffsets.length - 1 ||
+            scrollBottom < headingOffsets[index + 1].offsetTop)
+      );
+
+      // Si no se encuentra ninguna sección, usar la primera
+      if (currentSectionIndex === -1) {
+        currentSectionIndex = 0;
+      }
+
+      // Calcular el progreso relativo dentro de la sección actual
+      const currentHeading = headingOffsets[currentSectionIndex];
+      const nextHeading =
+        headingOffsets[currentSectionIndex + 1] || currentHeading;
+
+      const sectionHeight =
+        nextHeading.offsetTop - currentHeading.offsetTop || totalHeight;
+
+
+      const sectionScroll =
+        scrollBottom - currentHeading.offsetTop || 0;
+
+      const sectionProgress = Math.min(sectionScroll / sectionHeight, 1);
+
+      // Calcular el progreso total
+      const progress =
+        currentSectionIndex / (headingOffsets.length - 1) +
+        sectionProgress / (headingOffsets.length - 1);
+
+      // Actualizar el tamaño de la barra de progreso
+      scrollBar.style.height = progress * 100 + '%';
+    });
+  });
+</script>
