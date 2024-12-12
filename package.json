@@ -19,6 +19,7 @@
     "astro": "^5.0.4",
     "astro-icon": "^1.1.4",
     "astro-robots-txt": "^1.0.0",
+    "katex": "^0.16.15",
     "mdast-util-directive": "^3.0.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
