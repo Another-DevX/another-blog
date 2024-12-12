@@ -7,10 +7,14 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import admonitionsPlugin from './bin/remark-admonitions.js';
 
+import tailwind from '@astrojs/tailwind';
+
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://anotherdev.eth.limo',
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), tailwind(), icon()],
   trailingSlash: "always",
   markdown: {
     remarkPlugins: [remarkMath, admonitionsPlugin],

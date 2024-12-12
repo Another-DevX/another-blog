@@ -1,8 +1,10 @@
 ---
+
 title: 'ECDSA (Eliptic Curves signatures)'
 description: 'Deep dive into ECDSA'
-pubDate: 'Dec 11 2024'
-heroImage: '/ECDSA.png'
+publishDate: "27 January 2023"
+tags: ["Cryptography", "Math", "Blockchain"]
+ogImage: "/ECDSA.png"
 ---
 
 

@@ -1,0 +1,90 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../../styles/global.css';
+import type { SiteMeta } from "../../types";
+import { siteConfig } from "../../site.config";
+
+type Props = SiteMeta;
+
+const { articleDate, description, ogImage, title } = Astro.props;
+
+const titleSeparator = "•";
+const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
+---
+
+<!-- Global Metadata -->
+<meta charset='utf-8' />
+<meta name='viewport' content='width=device-width,initial-scale=1' />
+<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+<meta name='generator' content={Astro.generator} />
+<title>{siteTitle}</title>
+
+<!-- Icons -->
+<link href='/icon.svg' rel='icon' type='image/svg+xml' />
+{
+  import.meta.env.PROD && (
+    <>
+      {/* Favicon & Apple Icon */}
+      <link rel='icon' href='/favicon-32x32.png' type='image/png' />
+      <link href='/icons/apple-touch-icon.png' rel='apple-touch-icon' />
+      {/* Manifest */}
+      <link href='/manifest.webmanifest' rel='manifest' />
+    </>
+  )
+}
+
+<!-- Font preloads -->
+<link
+  rel='preload'
+  href='/fonts/atkinson-regular.woff'
+  as='font'
+  type='font/woff'
+  crossorigin
+/>
+<link
+  rel='preload'
+  href='/fonts/atkinson-bold.woff'
+  as='font'
+  type='font/woff'
+  crossorigin
+/>
+
+<!-- Canonical URL -->
+<link rel='canonical' href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<meta content={siteTitle} name='title' />
+<meta content={description} name='description' />
+<meta content={siteConfig.author} name='author' />
+
+<!-- Open Graph / Facebook -->
+<meta content={articleDate ? 'article' : 'website'} property='og:type' />
+<meta content={title} property='og:title' />
+<meta content={description} property='og:description' />
+<meta content={canonicalURL} property='og:url' />
+<meta content={siteConfig.title} property='og:site_name' />
+<meta content={siteConfig.ogLocale} property='og:locale' />
+<meta content={socialImageURL} property='og:image' />
+<meta content='1200' property='og:image:width' />
+<meta content='630' property='og:image:height' />
+{
+  articleDate && (
+    <>
+      <meta content={siteConfig.author} property='article:author' />
+      <meta content={articleDate} property='article:published_time' />
+    </>
+  )
+}
+
+<!-- Twitter -->
+<meta content='summary_large_image' property='twitter:card' />
+<meta content={canonicalURL} property='twitter:url' />
+<meta content={title} property='twitter:title' />
+<meta content={description} property='twitter:description' />
+<meta content={socialImageURL} property='twitter:image' />
+
+<!-- Theme Color -->
+<meta content='' name='theme-color' />
