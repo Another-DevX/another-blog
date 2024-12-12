@@ -10,6 +10,8 @@ import { remarkAdmonitions } from './src/plugins/remark-admonitions'; /* Add adm
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 import robotsTxt from 'astro-robots-txt';
 
+import expressiveCode from "astro-expressive-code";
+import { expressiveCodeOptions } from './src/site.config';
 import tailwind from '@astrojs/tailwind';
 
 import icon from 'astro-icon';
@@ -18,7 +20,7 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://an.otherdev.xyz',
   integrations: [
-    mdx(),
+		expressiveCode(expressiveCodeOptions),
     sitemap(),
     tailwind({ applyBaseStyles: false, nesting: true }),
     icon(),
