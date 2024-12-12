@@ -15,11 +15,12 @@
     --theme-accent: 351deg 66% 48%;
     --theme-accent-2: 0deg 0% 7%;
     --theme-quote: 351deg 66% 48%;
-    --h2-color: 351deg 66% 48%;
-    --h3-color: 351deg 66% 48%;
-    --h4-color: 351deg 66% 48%;
-    --h5-color: 351deg 66% 48%;
-    --h6-color: 351deg 66% 48%;
+    --h2-color: #BF4053;
+    --h3-color: #B3616D;
+    --h4-color: #AF7981;
+    --h5-color: #B29196;
+    --h6-color: #583F44;
+	--md-img-filter: invert(0) hue-rotate(0deg);
   }
 
   :root[data-theme='dark'] {
@@ -35,6 +36,7 @@
     --h4-color: #a9ba9d;
     --h5-color: #9dc183;
     --h6-color: #486e02;
+	--md-img-filter: invert(1) hue-rotate(100deg);
   }
 }
 
@@ -45,10 +47,10 @@
   font-style: normal;
 }
 
-.invert_B_C {
-  filter: invert(1) hue-rotate(80deg) ;
-  display: block; 
-  margin: 0 auto; 
-  max-width: 100%; 
-  height: auto; 
+.md_image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  filter: var(--md-img-filter);
 }

@@ -16,7 +16,7 @@ Donde $a$ y $b$ son constantes que determinan la forma de la curva, todos los pu
 
 Este tipo de curvas se usan en cripto-sistemas como **ECDSA (Elliptic Curve Digital Signature Algorithm)** por la dificultad de resolución del problema del logaritmo discreto en curvas elípticas.
 
-<img src="/images/ECDSA.svg" alt="Eliptic Curve with projective plane" class="invert_B_C" />
+<img src="/images/ECDSA.svg" alt="Eliptic Curve with projective plane" class="md_image" />
 
 
 
