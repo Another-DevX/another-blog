@@ -3,7 +3,7 @@ title: 'ECDSA (Eliptic Curves signatures)'
 description: 'Deep dive into ECDSA'
 publishDate: '27 January 2023'
 tags: ['Cryptography', 'Math']
-ogImage: '/ECDSA.png'
+ogImage: '/images/ECDSA.png'
 ---
 
 Una curva elíptica sobre un **campo finito** $\mathbb{F}_{p}$ se define por la ecuación de **Weierstrass estándar:**
@@ -15,6 +15,10 @@ $$
 Donde $a$ y $b$ son constantes que determinan la forma de la curva, todos los puntos que satisfacen esta ecuación.
 
 Este tipo de curvas se usan en cripto-sistemas como **ECDSA (Elliptic Curve Digital Signature Algorithm)** por la dificultad de resolución del problema del logaritmo discreto en curvas elípticas.
+
+<img src="/images/ECDSA.svg" alt="Eliptic Curve with projective plane" class="invert_B_C" />
+
+
 
 ## Curvas elípticas en criptografía
 
@@ -206,4 +210,3 @@ function verifySignature(bytes32 message, uint8 v, bytes32 r, bytes32 s) public 
 
 Las curvas elípticas ofrecen alta seguridad y eficiencia para objetivos criptográficos debido a que su estructura algebraico-geométrica dificulta el desarrollo de algoritmos capaces de resolver el **ECDLP** de forma rápida. Por otro lado, **ECDSA** utiliza llaves más cortas que otros sistemas equivalentes, como **RSA**, lo que ha convertido a **ECDSA** en un estándar en la industria de la criptografía.
 
-#Computing #Math/Cryptography #Math/Discrete
