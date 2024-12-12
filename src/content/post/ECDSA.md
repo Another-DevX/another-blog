@@ -179,9 +179,9 @@ Para verificar la firma se toma como input el **mensaje** ($m$), la **llave publ
 
 1. Calcular el hash del **mensaje** ($m$) usando **SHA-256** (Secure Hash Algorithm) $h = \text{hash}(m)$
 2. Calcular el inverso modular de la prueba de la firma $s^{-1} \text{ mod } n$
-3. Recuperar el punto random $R$ usado durante la firma $R' = (h \cdot s^{-1}) \cdot G  + (r \cdot s^{-1}) * P$
-4. Tomar la **coordenada $x$ del punto $R'$** como $r'$
-5. La firma es válida si $r = r'$
+3. Intentar recuperar el punto aleatorio $R$ usado durante la firma, definimos $R' = (h \cdot s^{-1}) \cdot G  + (r \cdot s^{-1}) * P$
+4. Tomar la **coordenada $x$ del punto recuperado $R'$** como $r'$
+5. La firma es válida si el la coordenada en $x$ recuperada es igual a la llave publica del firmante, osea $r = r'$
 
 Es posible recuperar la llave publica $P$ a partir de la firma.
 

@@ -2,39 +2,32 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../../styles/global.css';
-import type { SiteMeta } from "../../types";
-import { siteConfig } from "../../site.config";
+import type { SiteMeta } from '../../types';
+import { siteConfig } from '../../site.config';
 
 type Props = SiteMeta;
 
 const { articleDate, description, ogImage, title } = Astro.props;
 
-const titleSeparator = "•";
+const titleSeparator = '•';
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImageURL = new URL(ogImage ? ogImage : "/social-card.png", Astro.url).href;
+const socialImageURL = new URL(
+  ogImage ? ogImage : '/social-card.png',
+  Astro.url
+).href;
 ---
 
 <!-- Global Metadata -->
 <meta charset='utf-8' />
 <meta name='viewport' content='width=device-width,initial-scale=1' />
-<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+<link rel='icon' href='/favicon.ico' sizes='16x16 32x32' type='image/x-icon' />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link href='/icons/apple-touch-icon.png' rel='apple-touch-icon' />
+<link href='/manifest.webmanifest' rel='manifest' />
 <meta name='generator' content={Astro.generator} />
 <title>{siteTitle}</title>
-
-<!-- Icons -->
-<link href='/icon.svg' rel='icon' type='image/svg+xml' />
-{
-  import.meta.env.PROD && (
-    <>
-      {/* Favicon & Apple Icon */}
-      <link rel='icon' href='/favicon-32x32.png' type='image/png' />
-      <link href='/icons/apple-touch-icon.png' rel='apple-touch-icon' />
-      {/* Manifest */}
-      <link href='/manifest.webmanifest' rel='manifest' />
-    </>
-  )
-}
 
 <!-- Font preloads -->
 <link
