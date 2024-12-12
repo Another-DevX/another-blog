@@ -1,13 +1,13 @@
 import rss from '@astrojs/rss';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getAllPosts } from '../data/post';
+import { siteConfig } from "../site.config";
 
-export async function GET(context) {
+export async function GET() {
 	const posts = await getAllPosts();
 	return rss({
-		title: SITE_TITLE,
-		description: SITE_DESCRIPTION,
-		site: context.site,
+		title: siteConfig.title,
+		description: siteConfig.description,
+		site: import.meta.env.SITE,
 		items: posts.map((post) => ({
 			title: post.data.title,
 			description: post.data.description,

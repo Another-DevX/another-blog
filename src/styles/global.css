@@ -3,25 +3,42 @@
 @tailwind utilities;
 
 @layer base {
-	:root,
-	:root[data-theme="light"] {
-		color-scheme: light;
-		/* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
-		--theme-bg: 0deg 0% 98%;
-		--theme-link: 172deg 18% 41%;
-		--theme-text: 203deg 11% 15%;
-		--theme-accent: 351deg 66% 48%;
-		--theme-accent-2: 0deg 0% 7%;
-		--theme-quote: 351deg 66% 48%;
-	}
+  :root,
+  :root[data-theme='light'] {
+    color-scheme: light;
+    /* https://tailwindcss.com/docs/customizing-colors#using-css-variables */
+    --theme-bg: 0deg 0% 98%;
+    --theme-link: 172deg 18% 41%;
+    --theme-text: 203deg 11% 15%;
+    --theme-accent: 351deg 66% 48%;
+    --theme-accent-2: 0deg 0% 7%;
+    --theme-quote: 351deg 66% 48%;
+    --h2-color: 351deg 66% 48%;
+    --h3-color: 351deg 66% 48%;
+	--h4-color: 351deg 66% 48%;
+	--h5-color: 351deg 66% 48%;
+	--h6-color: 351deg 66% 48%;
+  }
 
-	:root[data-theme="dark"] {
-		color-scheme: dark;
-		--theme-bg: 210deg 6% 12%;
-		--theme-link: 330deg 49% 67%;
-		--theme-text: 220deg 3% 79%;
-		--theme-accent: 159deg 64% 45%;
-		--theme-accent-2: 0deg 0% 93%;
-		--theme-quote: 102deg 100% 86%;
-	}
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --theme-bg: 0 0% 0%;
+    --theme-link: 330 49% 67%;
+    --theme-text: 220 3% 79%;
+    --theme-accent: 111 100% 54%;
+    --theme-accent-2: 0 0% 93%;
+    --theme-quote: 102 100% 86%;
+    --h2-color: #50c878;
+    --h3-color: #a8e4a0;
+    --h4-color: #a9ba9d;
+    --h5-color: #9dc183;
+    --h6-color: #486e02;
+  }
+}
+
+@font-face {
+  font-family: 'Atkinson';
+  src: url('/fonts/atkinson-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }

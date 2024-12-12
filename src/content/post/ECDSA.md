@@ -131,7 +131,9 @@ La generación de estas llaves es extremadamente rápida y eficiente.
 
 Las llaves públicas son puntos de la curva elíptica, y estos puntos están definidos por coordenadas $(x,y)$. Debido a las propiedades de esta familia de curvas, los puntos se pueden expresar en una versión comprimida de una sola coordenada $x$ y una bandera que indica si $y$ es positivo o negativo, por tanto a una llave privada de **256-bit** le corresponde una llave publica de **257-bit**.
 
-> La propiedad específica que permite esta compresión es la **simetría respecto al eje $x$**. Esto se debe a que, para una curva elíptica $C$ definida por $y^2 = x^3 + ax + b$, para cada valor de $x$ (dentro del dominio válido de la curva) tiene como máximo dos valores posibles de $y$, que son opuestos: $y$ y $-y$. Esta simetría permite almacenar únicamente $x$ y un bit adicional que indique el signo de $y$.
+:::note
+ La propiedad específica que permite esta compresión es la **simetría respecto al eje $x$**. Esto se debe a que, para una curva elíptica $C$ definida por $y^2 = x^3 + ax + b$, para cada valor de $x$ (dentro del dominio válido de la curva) tiene como máximo dos valores posibles de $y$, que son opuestos: $y$ y $-y$. Esta simetría permite almacenar únicamente $x$ y un bit adicional que indique el signo de $y$.
+:::
 
 ### Generador y orden
 
