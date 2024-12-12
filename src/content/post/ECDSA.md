@@ -1,7 +1,7 @@
 ---
 title: 'ECDSA (Eliptic Curves signatures)'
 description: 'Deep dive into ECDSA'
-publishDate: '27 January 2023'
+publishDate: '12 December 2024'
 tags: ['Cryptography', 'Math']
 ogImage: '/images/ECDSA.png'
 ---
@@ -19,10 +19,9 @@ Este tipo de curvas se usan en cripto-sistemas como **ECDSA (Elliptic Curve Digi
 <img src="/images/ECDSA.svg" alt="Eliptic Curve with projective plane" class="md_image" />
 
 
-
 ## Curvas elípticas en criptografía
 
-Las curvas elípticas han ganado popularidad sobre métodos clásicos como **RSA** debido a que proporcionan un nivel equivalente o superior de seguridad con tamaños de llave significativamente menores. Por ejemplo, una clave de **256 bits en ECDSA** ofrece una seguridad comparable a la de una clave **RSA de 3072 bits**. Esto implica un ahorro en ancho de banda, tiempo de cómputo y espacio de almacenamiento. Además, el problema del logaritmo discreto en curvas elípticas **(ECDLP)** es considerado más difícil de resolver que el problema del logaritmo discreto clásico **(DLP)** en los enteros módulo **$p$**, por lo que a igualdad de recursos computacionales, las curvas elípticas presentan una barrera de **seguridad más alta**.
+Las curvas elípticas han ganado popularidad sobre métodos clásicos como **RSA** debido a que proporcionan un nivel equivalente o superior de seguridad con tamaños de llave significativamente menores. Por ejemplo, una llave de **256 bits en ECDSA** ofrece una seguridad comparable a la de una llave **RSA de 3072 bits** (refierase a Tabla 2 de NIST SP 800-57 Part 1 Rev. 5)[^1]. Esto implica un ahorro en ancho de banda, tiempo de cómputo y espacio de almacenamiento. Además, el problema del logaritmo discreto en curvas elípticas **(ECDLP)** es considerado más difícil de resolver que el problema del logaritmo discreto clásico **(DLP)** en los enteros módulo **$p$**, por lo que a igualdad de recursos computacionales, las curvas elípticas presentan una barrera de **seguridad más alta**.
 
 ## Estructura de Grupo en Curvas Elípticas
 
@@ -159,9 +158,14 @@ Note que calcular $k$ dados los puntos $G$ y $P$ es computacionalmente inviable,
 1. No existe una operación inversa definida sobre el grupo tal que $k = \frac{P}{G}$
 2. La única forma conocida de encontrar $k$ es mediante fuerza bruta o algoritmos especializados, lo que garantiza la seguridad del esquema.
 
+
+Todo el proceso anterior se caracteriza mas profundamente en **Digital Signature Standard (DSS)**[^2]
+
 ## ECDSA: Firmas Digitales con Curvas Elípticas
 
-Para este tipo de casos usamos curvas conocidas, como por ejemplo **secp256k1**.
+Es importante usar curvas conocidas y seleccionadas rigurosamente para evitar brechas de seguridad,  curvas como por ejemplo **secp256k1**.
+
+A continuación realizaremos la construcción del algoritmo de **ECDSA** basándonos en **Practical Cryptography For Developers**[^3] 
 
 ### Generación
 
@@ -210,3 +214,8 @@ function verifySignature(bytes32 message, uint8 v, bytes32 r, bytes32 s) public 
 
 Las curvas elípticas ofrecen alta seguridad y eficiencia para objetivos criptográficos debido a que su estructura algebraico-geométrica dificulta el desarrollo de algoritmos capaces de resolver el **ECDLP** de forma rápida. Por otro lado, **ECDSA** utiliza llaves más cortas que otros sistemas equivalentes, como **RSA**, lo que ha convertido a **ECDSA** en un estándar en la industria de la criptografía.
 
+
+## Referencias
+[^1]: NIST, "Recommendation for Key Management: Part 1 – General (Rev. 5)," NIST Special Publication 800-57 Part 1 Rev. 5, 2020. [Online]. Available: https://doi.org/10.6028/NIST.SP.800-57pt1r5.
+[^2]: NIST, "Digital Signature Standard (DSS)," Federal Information Processing Standards Publication 186-4, Section 6, pp. 15-22, July 2013. [Online]. Available: [https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf).
+[^3]: Svetlin Nakov, "ECDSA: Sign and Verify Messages," Cryptobook, [Online]. Available: https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages. [Accessed: Dec. 12, 2024].
