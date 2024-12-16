@@ -3,6 +3,7 @@ import { render, type CollectionEntry } from 'astro:content';
 import TOC from '../components/blog/TOC.astro';
 import Masthead from '../components/blog/Masthead.astro';
 import PageLayout from './PageLayout.astro';
+import { GITHUB_REPO } from '../consts';
 
 interface Props {
   post: CollectionEntry<'post'>;
@@ -43,6 +44,7 @@ const { headings } = await render(post);
       >
         <slot />
       </div>
+      <a class="text-accent hover:underline"   href={`${GITHUB_REPO}/blob/main/src/content/post/${post.id}.md`}  target="_blank">Feel free to contribute or suggest corrections here</a>
     </article>
   </div>
   <button
