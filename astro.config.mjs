@@ -5,16 +5,20 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import remarkDirective from 'remark-directive'; /* Handle ::: directives as nodes */
-import { remarkAdmonitions } from './src/plugins/remark-admonitions'; /* Add admonitions */
+import remarkDirective from 'remark-directive';/* Handle ::: directives as nodes */
+import { remarkAdmonitions } from './src/plugins/remark-admonitions';/* Add admonitions */
 import { remarkReadingTime } from './src/plugins/remark-reading-time';
 import robotsTxt from 'astro-robots-txt';
 
 import expressiveCode from 'astro-expressive-code';
 import { expressiveCodeOptions } from './src/site.config';
 import tailwind from '@astrojs/tailwind';
+import topLevelAwait from "vite-plugin-top-level-await";
+import wasm from "vite-plugin-wasm";
 
 import icon from 'astro-icon';
+
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -25,6 +29,8 @@ export default defineConfig({
     tailwind({ applyBaseStyles: false, nesting: true }),
     icon(),
     robotsTxt(),
+    wasm(),
+    react()
   ],
   trailingSlash: 'always',
   prefetch: true,
@@ -32,7 +38,7 @@ export default defineConfig({
     optimizeDeps: {
       exclude: ['@resvg/resvg-js'],
     },
-    plugins: [rawFonts(['.ttf', '.woff'])],
+    plugins: [rawFonts(['.ttf', '.woff']), wasm(), topLevelAwait()],
   },
   markdown: {
     remarkPlugins: [
