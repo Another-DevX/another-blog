@@ -15,11 +15,11 @@
     --theme-accent: 351deg 66% 48%;
     --theme-accent-2: 0deg 0% 7%;
     --theme-quote: 351deg 66% 48%;
-    --h2-color: #bf4053;
-    --h3-color: #b3616d;
-    --h4-color: #af7981;
-    --h5-color: #b29196;
-    --h6-color: #583f44;
+    --h2-color: #2e7d32;
+    --h3-color: #388e3c;
+    --h4-color: #43a047;
+    --h5-color: #4caf50;
+    --h6-color: #66bb6a;
     --md-img-filter: invert(0) hue-rotate(0deg);
   }
 
@@ -31,11 +31,11 @@
     --theme-accent: 111 100% 54%;
     --theme-accent-2: 0 0% 93%;
     --theme-quote: 102 100% 86%;
-    --h2-color: #50c878;
-    --h3-color: #a8e4a0;
-    --h4-color: #a9ba9d;
-    --h5-color: #9dc183;
-    --h6-color: #486e02;
+    --h2-color: #81c784;
+    --h3-color: #a5d6a7;
+    --h4-color: #c8e6c9;
+    --h5-color: #e8f5e9;
+    --h6-color: #f1f8e9;
     --md-img-filter: invert(1) hue-rotate(100deg);
   }
 }
@@ -63,4 +63,47 @@
 /* Estilo para el enlace activo en el TOC */
 .toc a[data-active="true"] {
   color: hsl(var(--theme-accent));
+}
+
+/* Estilos para los encabezados */
+.prose h1 {
+  font-size: 1.953rem !important; /* 31px */
+  margin-top: 2em;
+  margin-bottom: 1em;
+  color: var(--h2-color) !important;
+}
+
+.prose h2 {
+  font-size: 1.563rem !important; /* 25px */
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  color: var(--h3-color) !important;
+}
+
+.prose h3 {
+  font-size: 1.25rem !important; /* 20px */
+  margin-top: 1.25em;
+  margin-bottom: 0.625em;
+  color: var(--h4-color) !important;
+}
+
+.prose h4 {
+  font-size: 1.125rem !important; /* 18px */
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: var(--h5-color) !important;
+}
+
+.prose h5 {
+  font-size: 1rem !important; /* 16px */
+  margin-top: 0.875em;
+  margin-bottom: 0.4375em;
+  color: var(--h6-color) !important;
+}
+
+.prose h6 {
+  font-size: 0.875rem !important; /* 14px */
+  margin-top: 0.75em;
+  margin-bottom: 0.375em;
+  color: var(--h6-color) !important;
 }
