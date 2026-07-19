@@ -14,6 +14,19 @@ export interface Project {
 	}[];
 }
 
+export interface OpenSourceContribution {
+	name: string;
+	organization: string;
+	description: string;
+	repository: string;
+	technologies: string[];
+	pullRequests: {
+		label: string;
+		url: string;
+		status: "merged" | "open" | "closed";
+	}[];
+}
+
 export const projects: Project[] = [
 	{
 		name: "RLOX",
@@ -103,6 +116,71 @@ export const projects: Project[] = [
 				label: "merkle-tree-membership-circuit",
 				url: "https://github.com/Another-DevX/merkle-tree-membership-circuit",
 			},
+		],
+	},
+];
+
+export const openSourceContributions: OpenSourceContribution[] = [
+	{
+		name: "Foundry",
+		organization: "foundry-rs",
+		description:
+			"Improved smart-contract development ergonomics with a deterministic RNG seed cheatcode and support for verifying Vyper contracts, including the required Vyper JSON code format in the block-explorer tooling.",
+		repository: "https://github.com/foundry-rs/foundry",
+		technologies: ["Rust", "Solidity", "Vyper", "Testing"],
+		pullRequests: [
+			{ label: "useSeed cheatcode", url: "https://github.com/foundry-rs/foundry/pull/10698", status: "merged" },
+			{ label: "Vyper verification", url: "https://github.com/foundry-rs/foundry/pull/10864", status: "merged" },
+			{ label: "Vyper JSON format", url: "https://github.com/foundry-rs/block-explorers/pull/91", status: "merged" },
+		],
+	},
+	{
+		name: "Reth",
+		organization: "paradigmxyz",
+		description:
+			"Contributed developer-experience and extensibility improvements to the Rust Ethereum client, adding CLI hardfork activation overrides and making the Ethereum EVM configuration generic over its chain specification.",
+		repository: "https://github.com/paradigmxyz/reth",
+		technologies: ["Rust", "Ethereum", "EVM", "DevEx"],
+		pullRequests: [
+			{ label: "Hardfork CLI overrides", url: "https://github.com/paradigmxyz/reth/pull/16589", status: "closed" },
+			{ label: "Generic ChainSpec", url: "https://github.com/paradigmxyz/reth/pull/16758", status: "merged" },
+		],
+	},
+	{
+		name: "Alloy",
+		organization: "alloy-rs",
+		description:
+			"Implemented a finalized-block stream for Alloy providers using slot-aware polling, caching, and RPC-error fallback, enabling lightweight real-time finality tracking without direct beacon-node integration.",
+		repository: "https://github.com/alloy-rs/alloy",
+		technologies: ["Rust", "Ethereum RPC", "Streams", "Finality"],
+		pullRequests: [
+			{ label: "FinalizedBlocksStream", url: "https://github.com/alloy-rs/alloy/pull/2665", status: "open" },
+		],
+	},
+	{
+		name: "Safe",
+		organization: "safe-global",
+		description:
+			"Improved ERC-4337 reliability by fixing EntryPoint v0.7 compatibility in the Safe SDK, updating module dependencies, and adding Safe Modules v0.3.0 deployment records for Celo Mainnet.",
+		repository: "https://github.com/safe-global/safe-core-sdk",
+		technologies: ["TypeScript", "ERC-4337", "Safe SDK", "Celo"],
+		pullRequests: [
+			{ label: "EntryPoint v0.7 fix", url: "https://github.com/safe-global/safe-core-sdk/pull/1160", status: "closed" },
+			{ label: "Module dependency update", url: "https://github.com/safe-global/safe-core-sdk/pull/1209", status: "closed" },
+			{ label: "Celo deployments", url: "https://github.com/safe-global/safe-modules-deployments/pull/54", status: "merged" },
+		],
+	},
+	{
+		name: "Builder’s Hub",
+		organization: "Avalanche",
+		description:
+			"Contributed UI maintenance and broader platform hardening, from upgrading shared shadcn components to session-derived authorization, Markdown sanitization, and centralized role-based access control.",
+		repository: "https://github.com/ava-labs/builders-hub",
+		technologies: ["TypeScript", "Next.js", "UI", "Security"],
+		pullRequests: [
+			{ label: "shadcn UI upgrade", url: "https://github.com/ava-labs/builders-hub/pull/2174", status: "closed" },
+			{ label: "Auth & XSS hardening", url: "https://github.com/ava-labs/builders-hub/pull/3819", status: "merged" },
+			{ label: "Centralized RBAC", url: "https://github.com/ava-labs/builders-hub/pull/4230", status: "open" },
 		],
 	},
 ];
