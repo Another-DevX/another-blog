@@ -1,0 +1,88 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import type { Project } from "../../data/projects";
+
+interface Props {
+	projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<featured-projects-carousel class="block" data-count={projects.length}>
+	<div
+		class="featured-projects-track -mx-1 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-2"
+		aria-label="Featured projects carousel"
+		tabindex="0"
+	>
+		{projects.map((project) => (
+			<div class="featured-projects-slide flex w-[88%] shrink-0 snap-start sm:w-[calc(50%-0.625rem)]">
+				<ProjectCard project={project} compact />
+			</div>
+		))}
+	</div>
+
+	<div class="mt-5 flex items-center justify-between gap-4">
+		<div class="featured-projects-dots flex gap-2" aria-hidden="true">
+			{projects.map((_, index) => (
+				<span class:list={["h-1.5 rounded-full bg-textColor/25 transition-all", index === 0 ? "w-6 bg-accent" : "w-1.5"]}></span>
+			))}
+		</div>
+		<div class="flex gap-2">
+			<button class="carousel-button carousel-prev" type="button" aria-label="Previous featured project" disabled>
+				<span aria-hidden="true">←</span>
+			</button>
+			<button class="carousel-button carousel-next" type="button" aria-label="Next featured project">
+				<span aria-hidden="true">→</span>
+			</button>
+		</div>
+	</div>
+</featured-projects-carousel>
+
+<script>
+	class FeaturedProjectsCarousel extends HTMLElement {
+		connectedCallback() {
+			const track = this.querySelector<HTMLElement>(".featured-projects-track");
+			const slides = [...this.querySelectorAll<HTMLElement>(".featured-projects-slide")];
+			const dots = [...this.querySelectorAll<HTMLElement>(".featured-projects-dots span")];
+			const previous = this.querySelector<HTMLButtonElement>(".carousel-prev");
+			const next = this.querySelector<HTMLButtonElement>(".carousel-next");
+			if (!track || !slides.length || !previous || !next) return;
+
+			let activeIndex = 0;
+			const update = () => {
+				const slideWidth = slides[0]?.offsetWidth || 1;
+				activeIndex = Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / (slideWidth + 20))));
+				dots.forEach((dot, index) => {
+					dot.classList.toggle("w-6", index === activeIndex);
+					dot.classList.toggle("bg-accent", index === activeIndex);
+					dot.classList.toggle("w-1.5", index !== activeIndex);
+				});
+				previous.disabled = track.scrollLeft <= 2;
+				next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+			};
+
+			const goTo = (index: number) => {
+				slides[Math.min(slides.length - 1, Math.max(0, index))]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+			};
+
+			previous.addEventListener("click", () => goTo(activeIndex - 1));
+			next.addEventListener("click", () => goTo(activeIndex + 1));
+			track.addEventListener("scroll", update, { passive: true });
+			window.addEventListener("resize", update);
+			update();
+		}
+	}
+
+	customElements.define("featured-projects-carousel", FeaturedProjectsCarousel);
+</script>
+
+<style>
+	.featured-projects-track {
+		scrollbar-width: none;
+	}
+
+	.featured-projects-track::-webkit-scrollbar {
+		display: none;
+	}
+</style>

@@ -1,0 +1,30 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import ProjectCard from "../components/projects/ProjectCard.astro";
+import { projects } from "../data/projects";
+
+const meta = {
+	title: "Projects",
+	description: "Personal projects in programming languages, physics, numerical methods, and zero-knowledge proofs.",
+};
+---
+
+<PageLayout meta={meta} wide>
+	<header class="mb-12 max-w-2xl">
+		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Things I have built</p>
+		<h1 class="title mb-5">Personal Projects</h1>
+		<p class="text-base leading-7 text-textColor/80">
+			Projects born from a simple idea: the best way to understand something is often to build it.
+		</p>
+	</header>
+
+	<section aria-label="Personal projects">
+		<div class="mb-7 flex items-center gap-4 font-mono text-xs uppercase tracking-widest text-textColor/60">
+			<span>{String(projects.length).padStart(2, "0")} selected works</span>
+			<span class="h-px flex-1 bg-textColor/20"></span>
+		</div>
+		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <ProjectCard project={project} />)}
+		</div>
+	</section>
+</PageLayout>

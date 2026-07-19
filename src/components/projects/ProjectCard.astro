@@ -1,0 +1,41 @@
+---
+import type { Project } from "../../data/projects";
+
+interface Props {
+	project: Project;
+	compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+---
+
+<article class:list={["project-card group", { "project-card--compact": compact }]}>
+	<div class="flex items-start justify-between gap-4">
+		<h3 class="text-lg font-semibold !text-textColor transition-colors group-hover:!text-accent">
+			<a href={project.github} target="_blank" rel="noreferrer">
+				<span class="absolute inset-0" aria-hidden="true"></span>
+				{project.name}
+			</a>
+		</h3>
+		<svg class="mt-1 h-5 w-5 shrink-0 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75" />
+		</svg>
+	</div>
+	<p class:list={["mt-3 leading-6 text-textColor/80", { "line-clamp-3": compact }]}>{project.description}</p>
+	{!compact && project.repositories && (
+		<div class="relative z-10 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-textColor/70">
+			<span>Repositories:</span>
+			{project.repositories.map((repository) => (
+				<a class="cactus-link" href={repository.url} target="_blank" rel="noreferrer">{repository.label}</a>
+			))}
+		</div>
+	)}
+	{!compact && project.reference && (
+		<p class="relative z-10 mt-3 text-sm text-textColor/70">
+			Inspired by <a class="cactus-link" href={project.reference.url} target="_blank" rel="noreferrer">{project.reference.label}</a>.
+		</p>
+	)}
+	<ul class="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+		{project.technologies.map((technology) => <li class="project-tag">{technology}</li>)}
+	</ul>
+</article>

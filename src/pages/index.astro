@@ -6,9 +6,11 @@ import PostPreview from "../components/blog/PostPreview.astro";
 import { getAllPosts } from "../data/post";
 import PageLayout from "../layouts/PageLayout.astro";
 import { collectionDateSort } from "../utils/date";
+import FeaturedProjectsCarousel from "../components/projects/FeaturedProjectsCarousel.astro";
+import { projects } from "../data/projects";
 
 // Posts
-const MAX_POSTS = 10;
+const MAX_POSTS = 4;
 const allPosts = await getAllPosts();
 const allPostsByDate = allPosts
 	.sort(collectionDateSort)
@@ -17,17 +19,36 @@ const allPostsByDate = allPosts
 ---
 
 <PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-6">Hello World!</h1>
-		<p class="mb-4">
-			Hi, welcome to my blogpost!
-			<br/>
-			Here we're going to talk about Math, Physics, and Computer Science.
+	<section class="max-w-2xl">
+		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Lab note #001</p>
+		<h1 class="mb-6 text-3xl font-semibold leading-tight text-textColor sm:text-4xl">
+			The universe <span class="text-accent">doesn’t owe us simplicity.</span>
+		</h1>
+		<p class="mb-6 max-w-xl text-base leading-7 text-textColor/80">
+			Research notes on programming languages, distributed systems, computational physics, cryptography, and quantum computing.
 		</p>
 		<SocialList />
 	</section>
-	<section aria-label="Blog post list" class="mt-16">
-		<h2 class="title mb-6 text-xl text-accent"><a href="/posts/">Posts</a></h2>
+
+	<section aria-label="Featured projects" class="mt-20">
+		<div class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3">
+			<div>
+				<p class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60">Selected work</p>
+				<h2 class="title text-xl !text-accent">Projects</h2>
+			</div>
+			<a class="cactus-link font-mono text-xs" href="/projects/">View all →</a>
+		</div>
+		<FeaturedProjectsCarousel projects={projects.filter((project) => project.featured)} />
+	</section>
+
+	<section aria-label="Latest blog posts" class="mt-20">
+		<div class="mb-7 flex items-end justify-between gap-4 border-b border-dashed border-textColor/25 pb-3">
+			<div>
+				<p class="mb-1 font-mono text-xs uppercase tracking-widest text-textColor/60">Latest writing</p>
+				<h2 class="title text-xl !text-accent">Blog</h2>
+			</div>
+			<a class="cactus-link font-mono text-xs" href="/posts/">View all →</a>
+		</div>
 		<ul class="space-y-4" role="list">
 			{
 				allPostsByDate.map((p) => (
@@ -37,21 +58,5 @@ const allPostsByDate = allPosts
 				))
 			}
 		</ul>
-	<!-- </section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title mb-6 text-xl text-accent">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-4" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	} -->
+	</section>
 </PageLayout>

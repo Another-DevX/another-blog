@@ -57,6 +57,8 @@ export default {
         bgColor: 'hsl(var(--theme-bg))',
         link: 'hsl(var(--theme-link) / <alpha-value>)',
         quote: 'hsl(var(--theme-quote) / <alpha-value>)',
+        surface: 'hsl(var(--theme-surface) / <alpha-value>)',
+        themeBorder: 'hsl(var(--theme-border) / <alpha-value>)',
         textColor: 'hsl(var(--theme-text) / <alpha-value>)',
         h2Color: 'var(--h2-color)',
         h3Color: 'var(--h3-color)',

@@ -14,13 +14,13 @@ export const siteConfig: SiteConfig = {
 		},
 	},
 	// Used as the default description meta property and webmanifest description
-	description: "Another personal blog from Another Dev.",
+	description: "Writing and personal projects from Another Dev, exploring computer science, physics, and mathematics.",
 	// HTML lang property, found in src/layouts/Base.astro L:18 & astro.config.ts L:48
 	lang: "en-US",
 	// Meta property, found in src/components/BaseHead.astro L:42
 	ogLocale: "en_US",
 	// Used to construct the meta title property found in src/components/BaseHead.astro L:11, and webmanifest name found in astro.config.ts L:42
-	title: "Another's Blog",
+	title: "Another Dev — Blog & Projects",
 };
 
 export const menuLinks: { path: string; title: string }[] = [
@@ -35,6 +35,10 @@ export const menuLinks: { path: string; title: string }[] = [
 	{
 		path: "/posts/",
 		title: "Blog",
+	},
+	{
+		path: "/projects/",
+		title: "Projects",
 	},
 ];
 
