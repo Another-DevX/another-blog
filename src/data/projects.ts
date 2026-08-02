@@ -29,6 +29,14 @@ export interface OpenSourceContribution {
 
 export const projects: Project[] = [
 	{
+		name: "Local RAG for PDF Documents",
+		description:
+			"A local retrieval-augmented generation pipeline for PDF documents. It extracts and normalizes text, builds cached embeddings, supports dense and hybrid retrieval, and generates grounded answers with verified citations through Ollama.",
+		github: "https://github.com/Another-DevX/RAG",
+		technologies: ["Python", "RAG", "Ollama"],
+		featured: true,
+	},
+	{
 		name: "RLOX",
 		description:
 			"Implementation of the LOX programming language interpreter in Rust. It includes the complete front-end—lexer, parser, AST generation, error reporting, and a tree-walk interpreter—without the bytecode VM.",
