@@ -12,6 +12,7 @@ const { articleDate, description, ogImage, title } = Astro.props;
 const titleSeparator = '•';
 const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const portfolioURL = new URL('/portfolio.json', Astro.site);
 const socialImageURL = new URL(
   ogImage ? ogImage : '/social-card.png',
   Astro.url
@@ -47,6 +48,8 @@ const socialImageURL = new URL(
 
 <!-- Canonical URL -->
 <link rel='canonical' href={canonicalURL} />
+<link rel='alternate' type='application/json' title='Another Dev portfolio data' href={portfolioURL} />
+<link rel='author' href='/about/' />
 
 <!-- Primary Meta Tags -->
 <meta content={siteTitle} name='title' />

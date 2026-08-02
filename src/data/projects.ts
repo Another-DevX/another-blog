@@ -1,4 +1,5 @@
 export interface Project {
+	id: string;
 	name: string;
 	description: string;
 	github: string;
@@ -15,6 +16,7 @@ export interface Project {
 }
 
 export interface OpenSourceContribution {
+	id: string;
 	name: string;
 	organization: string;
 	description: string;
@@ -29,6 +31,7 @@ export interface OpenSourceContribution {
 
 export const projects: Project[] = [
 	{
+		id: "local-rag-pdf-documents",
 		name: "Local RAG for PDF Documents",
 		description:
 			"A local retrieval-augmented generation pipeline for PDF documents. It extracts and normalizes text, builds cached embeddings, supports dense and hybrid retrieval, and generates grounded answers with verified citations through Ollama.",
@@ -37,6 +40,7 @@ export const projects: Project[] = [
 		featured: true,
 	},
 	{
+		id: "rlox",
 		name: "RLOX",
 		description:
 			"Implementation of the LOX programming language interpreter in Rust. It includes the complete front-end—lexer, parser, AST generation, error reporting, and a tree-walk interpreter—without the bytecode VM.",
@@ -49,6 +53,7 @@ export const projects: Project[] = [
 		},
 	},
 	{
+		id: "another-lisp",
 		name: "AnotherLISP",
 		description:
 			"A small LISP-like language implemented in Rust and C. It features a simple REPL, parsing, basic evaluation rules, and fundamental LISP primitives, with an emphasis on learning language design.",
@@ -60,6 +65,7 @@ export const projects: Project[] = [
 		},
 	},
 	{
+		id: "another-physics-engine",
 		name: "AnotherPhysicsEngine",
 		description:
 			"A handmade physics engine in C++ and Rust using RK45 integrators. It includes interactive Lorenz-attractor, particle-collision, and pendulum simulations, with real-time SDL rendering for trajectories and phase spaces.",
@@ -68,6 +74,7 @@ export const projects: Project[] = [
 		featured: true,
 	},
 	{
+		id: "fluid-mechanics",
 		name: "Fluid Mechanics",
 		description:
 			"A real-time 2D fluid solver in C++, developed after deriving the Navier–Stokes equations for incompressible, inviscid fluids from first principles. It implements advection, pressure projection, boundary handling, and an SFML visualization pipeline.",
@@ -76,6 +83,7 @@ export const projects: Project[] = [
 		featured: true,
 	},
 	{
+		id: "quanthathon-tfim-digital-simulation",
 		name: "Quanthathon — TFIM Digital Simulation",
 		description:
 			"An 8-qubit digital simulation of the Transverse-Field Ising Model on Quantinuum H2-1LE. It studies Suzuki–Trotter dynamics, benchmarks observables against exact diagonalization, explores VQE ground states, and evaluates Iceberg error detection.",
@@ -84,6 +92,7 @@ export const projects: Project[] = [
 		featured: true,
 	},
 	{
+		id: "tbp-rtbp-simulations",
 		name: "TBP & RTBP Simulations",
 		description:
 			"An exploration of the Three-Body and Restricted Three-Body Problems using symplectic and RK45 integrators. The simulations and Poincaré sections reveal qualitative chaotic behavior through numerical experimentation.",
@@ -92,6 +101,7 @@ export const projects: Project[] = [
 		technologies: ["Numerical methods", "RK45", "Dynamical systems"],
 	},
 	{
+		id: "zero-to-zero-knowledge-workshop",
 		name: "Zero to Zero-Knowledge Workshop",
 		description:
 			"A practical ETHCDM 2025 workshop introducing zero-knowledge proofs with Noir. The material takes participants from foundational concepts and circuit building to proof generation and on-chain smart-contract verification.",
@@ -99,6 +109,7 @@ export const projects: Project[] = [
 		technologies: ["Noir", "Zero knowledge", "Smart contracts"],
 	},
 	{
+		id: "px402",
 		name: "px402",
 		description:
 			"A privacy-preserving implementation of the x402 payment protocol. It combines Noir circuits, a Merkle-tree shielded pool, Solidity contracts, a payment facilitator, and on-chain settlement for private web payments.",
@@ -107,6 +118,7 @@ export const projects: Project[] = [
 		technologies: ["Noir", "Solidity", "x402", "Merkle trees", "TypeScript"],
 	},
 	{
+		id: "naive-zk-snark",
 		name: "Naive ZK-SNARK",
 		description:
 			"A minimal zero-knowledge argument of polynomial divisibility implemented in Rust using arkworks and pairing-based commitments inspired by KZG.",
@@ -118,6 +130,7 @@ export const projects: Project[] = [
 		},
 	},
 	{
+		id: "zk-token-gating-merkle-membership",
 		name: "ZK Token Gating & Merkle Membership",
 		description:
 			"A pair of zero-knowledge experiments for private access control: a token-gated system that proves eligibility without exposing wallet details, and a circuit that proves a private leaf belongs to a Merkle tree without revealing the member or its position.",
@@ -138,6 +151,7 @@ export const projects: Project[] = [
 
 export const openSourceContributions: OpenSourceContribution[] = [
 	{
+		id: "foundry",
 		name: "Foundry",
 		organization: "foundry-rs",
 		description:
@@ -151,6 +165,7 @@ export const openSourceContributions: OpenSourceContribution[] = [
 		],
 	},
 	{
+		id: "reth",
 		name: "Reth",
 		organization: "paradigmxyz",
 		description:
@@ -163,6 +178,7 @@ export const openSourceContributions: OpenSourceContribution[] = [
 		],
 	},
 	{
+		id: "alloy",
 		name: "Alloy",
 		organization: "alloy-rs",
 		description:
@@ -174,6 +190,7 @@ export const openSourceContributions: OpenSourceContribution[] = [
 		],
 	},
 	{
+		id: "safe",
 		name: "Safe",
 		organization: "safe-global",
 		description:
@@ -187,6 +204,7 @@ export const openSourceContributions: OpenSourceContribution[] = [
 		],
 	},
 	{
+		id: "builders-hub",
 		name: "Builder’s Hub",
 		organization: "Avalanche",
 		description:

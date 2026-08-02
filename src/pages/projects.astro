@@ -2,10 +2,11 @@
 import PageLayout from "../layouts/PageLayout.astro";
 import ProjectCard from "../components/projects/ProjectCard.astro";
 import { openSourceContributions, projects } from "../data/projects";
+import { siteConfig } from "../site.config";
 
 const meta = {
 	title: "Projects",
-	description: "Personal projects in programming languages, physics, numerical methods, and zero-knowledge proofs.",
+	description: "Projects and open-source contributions by Another Dev across systems, physics, cryptography, Ethereum infrastructure, privacy, and quantum computing.",
 };
 
 const statusClasses = {
@@ -13,9 +14,118 @@ const statusClasses = {
 	open: "border-green-600/35 bg-green-500/10 text-green-700 dark:text-green-300",
 	closed: "border-red-500/35 bg-red-500/10 text-red-700 dark:text-red-300",
 };
+
+const siteURL = Astro.site ?? new URL(Astro.url.origin);
+const absoluteURL = (path: string) => new URL(path, siteURL).href;
+const personID = absoluteURL("/#person");
+const projectEntries = projects.map((project) => ({
+	"@type": "SoftwareSourceCode",
+	"@id": absoluteURL(`/projects/#${project.id}`),
+	name: project.name,
+	description: project.description,
+	url: project.github,
+	codeRepository: project.github,
+	author: { "@id": personID },
+	keywords: project.technologies,
+	sameAs: [project.github, ...(project.repositories?.map(({ url }) => url) ?? [])],
+	citation: project.reference
+		? { "@type": "CreativeWork", name: project.reference.label, url: project.reference.url }
+		: undefined,
+	additionalProperty: {
+		"@type": "PropertyValue",
+		name: "Featured",
+		value: project.featured ?? false,
+	},
+}));
+const contributionEntries = openSourceContributions.map((contribution) => ({
+	"@type": "SoftwareSourceCode",
+	"@id": absoluteURL(`/projects/#contribution-${contribution.id}`),
+	name: contribution.name,
+	description: contribution.description,
+	url: contribution.repository,
+	codeRepository: contribution.repository,
+	contributor: { "@id": personID },
+	producer: { "@type": "Organization", name: contribution.organization },
+	keywords: contribution.technologies,
+	hasPart: contribution.pullRequests.map((pullRequest) => ({
+		"@type": "CreativeWork",
+		name: pullRequest.label,
+		url: pullRequest.url,
+		additionalProperty: {
+			"@type": "PropertyValue",
+			name: "Pull request status",
+			value: pullRequest.status,
+		},
+	})),
+}));
+const knowsAbout = [...new Set([
+	...projects.flatMap(({ technologies }) => technologies),
+	...openSourceContributions.flatMap(({ technologies }) => technologies),
+])];
+const structuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			"@id": absoluteURL("/#website"),
+			name: siteConfig.title,
+			url: absoluteURL("/"),
+			author: { "@id": personID },
+		},
+		{
+			"@type": "Person",
+			"@id": personID,
+			name: siteConfig.author,
+			url: absoluteURL("/about/"),
+			email: `mailto:${siteConfig.email}`,
+			jobTitle: siteConfig.role,
+			sameAs: [siteConfig.github, siteConfig.linkedin],
+			affiliation: {
+				"@type": "CollegeOrUniversity",
+				name: "Universidad de Antioquia",
+				url: "https://www.udea.edu.co/",
+			},
+			knowsAbout,
+			subjectOf: [...projectEntries, ...contributionEntries].map(({ "@id": id }) => ({ "@id": id })),
+		},
+		{
+			"@type": "ProfilePage",
+			"@id": absoluteURL("/projects/#portfolio"),
+			name: "Another Dev — Projects and Open Source Contributions",
+			url: absoluteURL("/projects/"),
+			mainEntity: { "@id": personID },
+			hasPart: [
+				{
+					"@type": "ItemList",
+					name: "Personal projects",
+					numberOfItems: projectEntries.length,
+					itemListElement: projectEntries.map((item, index) => ({
+						"@type": "ListItem",
+						position: index + 1,
+						item: { "@id": item["@id"] },
+					})),
+				},
+				{
+					"@type": "ItemList",
+					name: "Open source contributions",
+					numberOfItems: contributionEntries.length,
+					itemListElement: contributionEntries.map((item, index) => ({
+						"@type": "ListItem",
+						position: index + 1,
+						item: { "@id": item["@id"] },
+					})),
+				},
+			],
+		},
+		...projectEntries,
+		...contributionEntries,
+	],
+};
+const structuredDataJSON = JSON.stringify(structuredData).replace(/</g, "\\u003c");
 ---
 
 <PageLayout meta={meta} wide>
+	<script type="application/ld+json" set:html={structuredDataJSON}></script>
 	<header class="mb-12 max-w-2xl">
 		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Things I have built</p>
 		<h1 class="title mb-5">Personal Projects</h1>
@@ -25,6 +135,7 @@ const statusClasses = {
 		<nav class="mt-6 flex flex-wrap gap-3 font-mono text-xs" aria-label="Project page sections">
 			<a class="rounded-sm border border-themeBorder bg-surface px-3 py-2 transition-colors hover:border-accent hover:text-accent" href="/projects/#projects">Personal projects</a>
 			<a class="rounded-sm border border-themeBorder bg-surface px-3 py-2 transition-colors hover:border-accent hover:text-accent" href="/projects/#contributions">Open source contributions</a>
+			<a class="rounded-sm border border-themeBorder bg-surface px-3 py-2 transition-colors hover:border-accent hover:text-accent" href="/projects/#contact">Contact</a>
 		</nav>
 	</header>
 
@@ -33,9 +144,9 @@ const statusClasses = {
 			<span>{String(projects.length).padStart(2, "0")} selected works</span>
 			<span class="h-px flex-1 bg-textColor/20"></span>
 		</div>
-		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-			{projects.map((project) => <ProjectCard project={project} />)}
-		</div>
+		<ol class="grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
+			{projects.map((project) => <li class="flex"><ProjectCard project={project} /></li>)}
+		</ol>
 	</section>
 
 	<section aria-labelledby="open-source-title" class="mt-24 scroll-mt-8" id="contributions">
@@ -46,43 +157,53 @@ const statusClasses = {
 				<a class="text-sm text-textColor/45 no-underline transition-colors hover:text-accent" href="/projects/#contributions" aria-label="Link to open source contributions">#</a>
 			</h2>
 			<p class="text-base leading-7 text-textColor/80">
-				Contributions to developer tooling and infrastructure across the Ethereum and Avalanche ecosystems. See the complete activity on <a class="cactus-link" href="https://github.com/Another-DevX" target="_blank" rel="noreferrer">GitHub</a>.
+				Contributions to developer tooling and infrastructure across the Ethereum and Avalanche ecosystems. See the complete activity on <a class="cactus-link" href={siteConfig.github} target="_blank" rel="me noreferrer">GitHub</a>.
 			</p>
 		</header>
 
-		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+		<ol class="grid list-none gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
 			{openSourceContributions.map((contribution) => (
-				<article class="project-card flex flex-col">
-					<div class="flex items-start justify-between gap-4">
-						<div>
-							<p class="mb-1 font-mono text-[0.7rem] uppercase tracking-widest text-textColor/55">{contribution.organization}</p>
-							<h3 class="text-lg font-semibold !text-textColor">
-								<a class="cactus-link" href={contribution.repository} target="_blank" rel="noreferrer">{contribution.name}</a>
-							</h3>
+				<li class="flex">
+					<article class="project-card flex flex-col" id={`contribution-${contribution.id}`}>
+						<div class="flex items-start justify-between gap-4">
+							<div>
+								<p class="mb-1 font-mono text-[0.7rem] uppercase tracking-widest text-textColor/55">{contribution.organization}</p>
+								<h3 class="text-lg font-semibold !text-textColor">
+									<a class="cactus-link" href={contribution.repository} target="_blank" rel="noreferrer">{contribution.name}</a>
+								</h3>
+							</div>
+							<svg class="mt-1 h-5 w-5 shrink-0 text-accent" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75" />
+							</svg>
 						</div>
-						<svg class="mt-1 h-5 w-5 shrink-0 text-accent" aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18m0 0v4.5M18 6l-7.5 7.5M6 8.25v9.75h9.75" />
-						</svg>
-					</div>
-					<p class="mt-3 flex-1 leading-6 text-textColor/80">{contribution.description}</p>
-					<ul class="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
-						{contribution.technologies.map((technology) => <li class="project-tag">{technology}</li>)}
-					</ul>
-					<div class="mt-5 border-t border-themeBorder pt-4">
-						<p class="mb-2 font-mono text-[0.7rem] uppercase tracking-widest text-textColor/55">Pull requests</p>
-						<ul class="space-y-2 text-sm">
-							{contribution.pullRequests.map((pullRequest) => (
-								<li class="flex items-start justify-between gap-3">
-									<a class="cactus-link" href={pullRequest.url} target="_blank" rel="noreferrer">{pullRequest.label} ↗</a>
-									<span class:list={["shrink-0 rounded-full border px-2 py-0.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wide", statusClasses[pullRequest.status]]}>
-										{pullRequest.status}
-									</span>
-								</li>
-							))}
+						<p class="mt-3 flex-1 leading-6 text-textColor/80">{contribution.description}</p>
+						<ul class="mt-5 flex flex-wrap gap-2" aria-label={`Technologies used in ${contribution.name} contributions`}>
+							{contribution.technologies.map((technology) => <li class="project-tag">{technology}</li>)}
 						</ul>
-					</div>
-				</article>
+						<div class="mt-5 border-t border-themeBorder pt-4">
+							<p class="mb-2 font-mono text-[0.7rem] uppercase tracking-widest text-textColor/55">Pull requests</p>
+							<ul class="space-y-2 text-sm" aria-label={`Pull requests contributed to ${contribution.name}`}>
+								{contribution.pullRequests.map((pullRequest) => (
+									<li class="flex items-start justify-between gap-3" data-status={pullRequest.status}>
+										<a class="cactus-link" href={pullRequest.url} target="_blank" rel="noreferrer">{pullRequest.label} ↗</a>
+										<span class:list={["shrink-0 rounded-full border px-2 py-0.5 font-mono text-[0.65rem] font-semibold uppercase tracking-wide", statusClasses[pullRequest.status]]}>
+											{pullRequest.status}
+										</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</article>
+				</li>
 			))}
-		</div>
+		</ol>
+	</section>
+
+	<section aria-labelledby="contact-title" class="mt-24 scroll-mt-8 border-t border-themeBorder pt-10" id="contact">
+		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Work with me</p>
+		<h2 class="title mb-4 !text-accent" id="contact-title">Engineering and Collaboration</h2>
+		<p class="max-w-2xl text-base leading-7 text-textColor/80">
+			Interested in working together? Contact me at <a class="cactus-link" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> or connect with me on <a class="cactus-link" href={siteConfig.linkedin} target="_blank" rel="me noreferrer">LinkedIn</a>.
+		</p>
 	</section>
 </PageLayout>

@@ -1,22 +1,42 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { siteConfig } from '../site.config';
 
 const meta = {
-  description: "I'm a starter theme for Astro.build",
+  description: 'About Another Dev, a full-stack engineer and physics student working across systems, cryptography, computational physics, and quantum computing.',
   title: 'About',
 };
 ---
 
 <PageLayout meta={meta}>
-  <h1 class='title mb-6'>About</h1>
-  <div class='prose prose-sm prose-cactus max-w-none'>
-    <p>
-      Hi, I’m a Another dev. I’m really interested on Maths, Physics and
-      Computer Science, currently I'm a Physics student at the <a
-        href='https://www.udea.edu.co/'>Universidad de Antioquia</a
-      > and a FullStack Engineer at <a href='https://www.kolektivo.co/'
-        >Kolektivo Labs</a
-      >.
-    </p>
-  </div>
+	<header class="mb-10 max-w-2xl">
+		<p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">Engineer and physics student</p>
+		<h1 class="title mb-5">About Another Dev</h1>
+		<p class="text-base leading-7 text-textColor/80">
+			I am a full-stack engineer and Physics student at <a class="cactus-link" href="https://www.udea.edu.co/" target="_blank" rel="noreferrer">Universidad de Antioquia</a>. I learn by building systems that connect computer science, physics, and mathematics.
+		</p>
+	</header>
+
+	<section aria-labelledby="focus-title" class="mb-12">
+		<h2 class="title mb-4 text-xl !text-accent" id="focus-title">What I Work On</h2>
+		<p class="leading-7 text-textColor/80">
+			My work spans programming languages, Rust and Ethereum infrastructure, privacy-preserving protocols, numerical simulation, retrieval-augmented generation, and quantum computing. I also contribute fixes and features to established open-source projects including Foundry, Reth, Alloy, Safe, and Avalanche Builder's Hub.
+		</p>
+		<p class="mt-4 leading-7 text-textColor/80">
+			See the complete, evidence-linked record on the <a class="cactus-link" href="/projects/">projects and open-source contributions page</a>.
+		</p>
+	</section>
+
+	<section aria-labelledby="contact-title" class="border-t border-themeBorder pt-8">
+		<p class="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">Work with me</p>
+		<h2 class="title mb-4 text-xl !text-accent" id="contact-title">Contact</h2>
+		<p class="mb-5 leading-7 text-textColor/80">
+			For engineering opportunities, technical collaborations, or open-source work, reach me by email or LinkedIn.
+		</p>
+		<div class="flex flex-wrap gap-3 font-mono text-sm">
+			<a class="rounded-sm border border-themeBorder bg-surface px-4 py-2 transition-colors hover:border-accent hover:text-accent" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+			<a class="rounded-sm border border-themeBorder bg-surface px-4 py-2 transition-colors hover:border-accent hover:text-accent" href={siteConfig.linkedin} target="_blank" rel="me noreferrer">LinkedIn</a>
+			<a class="rounded-sm border border-themeBorder bg-surface px-4 py-2 transition-colors hover:border-accent hover:text-accent" href={siteConfig.github} target="_blank" rel="me noreferrer">GitHub</a>
+		</div>
+	</section>
 </PageLayout>
