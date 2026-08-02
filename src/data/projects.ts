@@ -76,6 +76,14 @@ export const projects: Project[] = [
 		featured: true,
 	},
 	{
+		name: "Quanthathon — TFIM Digital Simulation",
+		description:
+			"An 8-qubit digital simulation of the Transverse-Field Ising Model on Quantinuum H2-1LE. It studies Suzuki–Trotter dynamics, benchmarks observables against exact diagonalization, explores VQE ground states, and evaluates Iceberg error detection.",
+		github: "https://github.com/Another-DevX/quanthathon/tree/main/hackathon",
+		technologies: ["Python", "Quantum simulation", "Quantinuum", "pytket", "VQE"],
+		featured: true,
+	},
+	{
 		name: "TBP & RTBP Simulations",
 		description:
 			"An exploration of the Three-Body and Restricted Three-Body Problems using symplectic and RK45 integrators. The simulations and Poincaré sections reveal qualitative chaotic behavior through numerical experimentation.",
