@@ -34,9 +34,9 @@ export const projects: Project[] = [
 		id: "local-rag-pdf-documents",
 		name: "Local RAG for PDF Documents",
 		description:
-			"A local retrieval-augmented generation pipeline for PDF documents. It extracts and normalizes text, builds cached embeddings, supports dense and hybrid retrieval, and generates grounded answers with verified citations through Ollama.",
+			"A local retrieval-augmented generation pipeline for PDF documents. It extracts and normalizes text with PyMuPDF, builds hash-cached embeddings via Ollama, retrieves chunks with dense cosine, hybrid BM25, and Cross Encoder reranking, and generates grounded answers with verified, quoted evidence — backed by retrieval/generation evaluation harnesses and a local web dashboard.",
 		github: "https://github.com/Another-DevX/RAG",
-		technologies: ["Python", "RAG", "Ollama"],
+		technologies: ["Python", "RAG", "Ollama", "BM25", "FastAPI"],
 		featured: true,
 	},
 	{
